@@ -7,8 +7,6 @@ const User = require("../model/userModel");
 const { generateJwtToken } = require("../utilsFunction/jwtUtil");
 const cookieGenerator = require("../utilsFunction/cookieGenerator");
 
-// Initialize Google OAuth2 client using your Google Client ID
-const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 // POST /auth/google/token
 // This endpoint receives the Google token from your React client,

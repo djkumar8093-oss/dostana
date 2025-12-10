@@ -35,7 +35,7 @@ app.use(cookieParser());
 app.use(helmet());
 app.use(
   cors({
-    origin: [`https://${process.env.CLIENT_URL}`, "http://localhost:5173", "http://localhost:4173"],
+    origin: process.env.CLIENT_URL,
     // origin: "http://localhost:4173",
     credentials: true,
     exposedHeaders: ["X-Total-Count"],
@@ -84,7 +84,9 @@ app.use((req, res, next) => {
 // Global error handler
 app.use((err, req, res, next) => {
   if (err.name === "ValidationError") {
-    const errors = Object.keys(err.errors).map((key) => err.errors[key].message);
+    const errors = Object.keys(err.errors).map(
+      (key) => err.errors[key].message
+    );
     return res.status(400).json({
       status: "error",
       message: "Validation failed",
@@ -93,7 +95,9 @@ app.use((err, req, res, next) => {
   }
   console.error(err.message);
   const statusCode = err.statusCode || 500;
-  res.status(statusCode).json({ message: err.message || "Internal server error" });
+  res
+    .status(statusCode)
+    .json({ message: err.message || "Internal server error" });
 });
 
 // ----------------------------------
@@ -117,7 +121,7 @@ server.listen(PORT, () => {});
 // Create the Socket.IO server
 const io = new Server(server, {
   cors: {
-    origin: [`https://${process.env.CLIENT_URL}`, "http://localhost:5173", "http://localhost:4173"],
+    origin: process.env.CLIENT_URL,
     // origin: "http://localhost:4173",
     credentials: true,
   },
