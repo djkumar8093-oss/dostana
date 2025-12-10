@@ -7,7 +7,7 @@
     "start": "node src/index.js"
   },
   "engines": {
-    "node": "18.x"
+    "node": ">=20"
   },
   "dependencies": {
     "@ffmpeg/ffmpeg": "^0.12.15",
